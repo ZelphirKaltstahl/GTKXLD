@@ -29,3 +29,7 @@ if not self.button.handler_is_connected(self.button_handler_id): ...
 
 Buttons don't have an angle property, they probably cannot be rotated.
 Labels can be rotated.
+
+## How to get a list of existing/displayed Gtk Windows?
+
+http://stackoverflow.com/a/16703307/1829329
