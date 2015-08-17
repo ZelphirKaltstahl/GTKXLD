@@ -11,6 +11,7 @@ class XLDMainWindow(Gtk.Window):
     DEFAULT_X_SIZE = 400
     DEFAULT_Y_SIZE = 300
     menubar = None
+    uimanager = None
 
     def __init__(self):
         # super().__init__(title='Xiaolong Dictionary')
@@ -22,21 +23,27 @@ class XLDMainWindow(Gtk.Window):
         self.add_widgets()
 
     def initialize_widgets(self):
+        self.create_ui_manager()
         self.menubar = XLDMenuBar(self)
 
     def add_widgets(self):
-        self.add(self.menubar)
+        self.add_menubar()
+
+    def add_menubar(self):
+        menubar = self.uimanager.get_widget("/MenuBar")
+        box = Gtk.VBox()
+        box.pack_start(child=menubar, expand=False, fill=False, padding=0)
+        self.add(box)
 
     def connect_signals(self):
         pass
 
     def create_ui_manager(self):
-        uimanager = Gtk.UIManager()
-
-        # Throws exception if something went wrong
-        uimanager.add_ui_from_string(XLDMenuBar.MENUBAR_UI_INFO)
+        """This method creates a Gtk.UIManager."""
+        self.uimanager = Gtk.UIManager()
 
         # Add the accelerator group to the toplevel window
-        accelgroup = uimanager.get_accel_group()
+        accelgroup = self.uimanager.get_accel_group()
         self.add_accel_group(accelgroup)
-        return uimanager
+
+        return self.uimanager

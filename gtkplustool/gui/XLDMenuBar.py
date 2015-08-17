@@ -122,12 +122,6 @@ class XLDMenuBar(Gtk.MenuBar):
         # TODO: add other action handlers
 
     def load_ui_info(self):
-        uimanager = self.parent.create_ui_manager()
+        uimanager = self.parent.uimanager
+        uimanager.add_ui_from_string(self.MENUBAR_UI_INFO)
         uimanager.insert_action_group(self.toplevel_menubar_action_group)
-
-        menubar = uimanager.get_widget("/MenuBar")
-
-        vertical_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        vertical_box.pack_start(child=menubar, expand=False, fill=False, padding=0)
-
-        self.add(vertical_box)
