@@ -6,12 +6,12 @@ __author__ = 'xiaolong'
 
 class XLDVocableTreeView(Gtk.TreeView):
 
-    column_expand = [False, True, False, True, False]
-    columns_titles = ['#', 'German', 'IPA', 'Mandarin', 'Pīnyīn']
+    column_expand = [False, True, False, False, True]
+    columns_titles = ['#', 'German', 'IPA', 'Pīnyīn', 'Mandarin']
     columns = []
     cell_renderers = []
 
-    def __init__(self, model):
+    def __init__(self, model=None):
         super().__init__(model=model)
 
         for index, column_title in enumerate(self.columns_titles):
@@ -32,8 +32,9 @@ class XLDVocableTreeView(Gtk.TreeView):
                 column=index
             )
 
-            self.treeview.set_search_column(index)
-            self.column[-1].set_sort_column_id(index)
+            self.set_search_column(index)
+            self.columns[-1].set_sort_column_id(index)
+            self.columns[-1].set_reorderable(True)
 
         self.set_reorderable(True)
 

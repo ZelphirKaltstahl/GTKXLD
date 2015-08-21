@@ -5,6 +5,7 @@
 from gi.repository import Gtk
 from random import randint
 from math import log10, floor
+from helpers.StringHelper import get_leading_zero_number_string, len_of_number
 
 
 class BasicTreeViewExample:
@@ -31,7 +32,10 @@ class BasicTreeViewExample:
         for parent_index in range(len(list)):
             # parent_handle = self.liststore.append([str(parent_index), 'aaa {random_string}'.format(random_string=str(randint(0,9)))])
             print(parent_index)
-            parent_handle = self.liststore.append([get_index_unformated_string(list).format(parent_index), 'aaa {random_string}'.format(random_string=str(randint(0,9)))])
+            parent_handle = self.liststore.append(
+                [get_leading_zero_number_string(parent_index, len_of_number(len(list))),
+                 'aaa {random_string}'.format(random_string=str(randint(0,9)))]
+            )
             '''for child_index in range(3):
                 self.liststore.append(parent_handle, ['child {child_count} of parent {parent_count}'.format(child_count=child_index, parent_count=parent_index)])'''
 
@@ -89,12 +93,13 @@ class BasicTreeViewExample:
 def main():
     Gtk.main()
 
+'''
 def get_index_unformated_string(list):
     return '{0:0'+str(len_of_number(len(list)-1))+'d}'
 
 def len_of_number(number):
     return int(log10(number)+1)
-
+'''
 if __name__ == "__main__":
     tvexample = BasicTreeViewExample()
     main()
