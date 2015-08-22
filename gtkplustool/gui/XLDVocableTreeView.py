@@ -36,8 +36,6 @@ class XLDVocableTreeView(Gtk.TreeView):
             self.columns[-1].set_sort_column_id(index)
             self.columns[-1].set_reorderable(True)
 
-        self.set_reorderable(True)
+        self.get_selection().set_mode(Gtk.SelectionMode.MULTIPLE)
 
-    def set_data(self, model):
-        self.set_model(model)  # TODO: decide whether or not this is useful
-        pass
+

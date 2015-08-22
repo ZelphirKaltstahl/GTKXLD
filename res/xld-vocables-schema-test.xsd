@@ -1,0 +1,28 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<xsd:element name="list">
+		<xsd:complexType><!--a list is a complex type (because it consists of more than one string for example)-->
+			<xsd:sequence><!--a list consists of a single sequence-->
+	
+				<xsd:element name="vocable" minOccurs="0" maxOccurs="unbounded"><!--a sequence consists of 0 or more vocable elements-->
+					<xsd:complexType><!--a vocable element is a complex type-->
+						<xsd:sequence><!--a vocable consists of a sequence of elements-->
+							<xsd:element name="firstLanguageTranslations" type="xsd:string" minOccurs="1" maxOccurs="1" /><!--each element representing an attribute of a vocable, has to occur once and only once-->
+							<xsd:element name="firstLanguagePhoneticScripts" type="xsd:string" minOccurs="1" maxOccurs="1" /><!--each element representing an attribute of a vocable, has to occur once and only once-->
+							<xsd:element name="secondLanguageTranslations" type="xsd:string" minOccurs="1" maxOccurs="1" /><!--each element representing an attribute of a vocable, has to occur once and only once-->
+							<xsd:element name="secondLanguagePhoneticScripts" type="xsd:string" minOccurs="1" maxOccurs="1" /><!--each element representing an attribute of a vocable, has to occur once and only once-->
+							
+							<xsd:element name="topics" type="xsd:string" minOccurs="1" maxOccurs="1" /><!--each element representing an attribute of a vocable, has to occur once and only once-->
+							<xsd:element name="chapters" type="xsd:string" minOccurs="1" maxOccurs="1" /><!--each element representing an attribute of a vocable, has to occur once and only once-->
+							<xsd:element name="description" type="xsd:string" minOccurs="1" maxOccurs="1" /><!--each element representing an attribute of a vocable, has to occur once and only once-->
+							<xsd:element name="learnLevel" type="xsd:string" minOccurs="1" maxOccurs="1" /><!--each element representing an attribute of a vocable, has to occur once and only once-->
+							<xsd:element name="relevanceLevel" type="xsd:string" minOccurs="1" maxOccurs="1" /><!--each element representing an attribute of a vocable, has to occur once and only once-->
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+</xsd:schema>
