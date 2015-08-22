@@ -38,10 +38,10 @@ UI_INFO = """
 </ui>
 """
 
-class MenuExampleWindow(Gtk.Window):
 
+class MenuExampleWindow(Gtk.Window):
     def __init__(self):
-        Gtk.Window.__init__(self, title="Menu Example")
+        super().__init__(title="Menu Example")
 
         self.set_default_size(200, 200)
 
@@ -74,11 +74,11 @@ class MenuExampleWindow(Gtk.Window):
         self.add(box)
 
     def add_file_menu_actions(self, action_group):
-        action_filemenu = Gtk.Action("FileMenu", "File", None, None) # create file menu
-        action_group.add_action(action_filemenu) # add file menu
+        action_filemenu = Gtk.Action("FileMenu", "File", None, None)  # create file menu
+        action_group.add_action(action_filemenu)  # add file menu
 
-        action_filenewmenu = Gtk.Action("FileNew", None, None, Gtk.STOCK_NEW) # create new menu
-        action_group.add_action(action_filenewmenu) # add new menu, same level as file menu
+        action_filenewmenu = Gtk.Action("FileNew", None, None, Gtk.STOCK_NEW)  # create new menu
+        action_group.add_action(action_filenewmenu)  # add new menu, same level as file menu
 
         action_new = Gtk.Action("FileNewStandard", "_New", "Create a new file", Gtk.STOCK_NEW)
         action_new.connect("activate", self.on_menu_file_new_generic)
@@ -106,7 +106,7 @@ class MenuExampleWindow(Gtk.Window):
 
     def add_choices_menu_actions(self, action_group):
         action_group.add_action(Gtk.Action("ChoicesMenu", "Choices", None,
-            None))
+                                           None))
 
         action_group.add_radio_actions([
             ("ChoiceOne", None, "One", None, None, 1),
@@ -150,10 +150,10 @@ class MenuExampleWindow(Gtk.Window):
         # Check if right mouse button was preseed
         if event.type == Gdk.EventType.BUTTON_PRESS and event.button == 3:
             self.popup.popup(None, None, None, None, event.button, event.time)
-            return True # event has been handled
+            return True  # event has been handled
+
 
 window = MenuExampleWindow()
 window.connect("delete-event", Gtk.main_quit)
 window.show_all()
 Gtk.main()
-

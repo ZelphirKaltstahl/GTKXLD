@@ -15,7 +15,7 @@ class XLDMenuBar(Gtk.MenuBar):
                         <menuitem action='File_New_Dictionary' />
                     </menu>
 
-                    <separator />
+                    <!--<separator />-->
 
                     <menuitem action='File_Open' />
 
@@ -56,7 +56,8 @@ class XLDMenuBar(Gtk.MenuBar):
             name='File_New_Dictionary',
             label='New dictionary …',
             tooltip='opens the dialog for creating a new dictionary',
-            stock_id=Gtk.STOCK_NEW
+            stock_id=None
+            # stock_id=Gtk.STOCK_NEW
         )
 
         # file -> open
@@ -64,7 +65,8 @@ class XLDMenuBar(Gtk.MenuBar):
             name='File_Open',
             label='Open …',
             tooltip='opens the dialog for opening files',
-            stock_id=Gtk.STOCK_OPEN
+            # stock_id=Gtk.STOCK_OPEN
+            stock_id=None
         )
 
         # file -> save
@@ -72,7 +74,8 @@ class XLDMenuBar(Gtk.MenuBar):
             name='File_Save',
             label='Save',
             tooltip='saves current changes of the dictionary to the dictionary file',
-            stock_id=Gtk.STOCK_SAVE
+            stock_id=None
+            # stock_id=Gtk.STOCK_SAVE
         )
 
         # file -> saveas
@@ -81,19 +84,22 @@ class XLDMenuBar(Gtk.MenuBar):
             name='File_SaveAs_Dictionary',
             label='Save dictionary as …',
             tooltip='saves the current dictionary with current changes to a specified file',
-            stock_id=Gtk.STOCK_SAVE_AS
+            # stock_id=Gtk.STOCK_SAVE_AS
+            stock_id=None
         )
         self.action_filemenu_saveas_searchresult = Gtk.Action(
             name='File_SaveAs_SearchResult',
             label='Save search result as …',
             tooltip='saves the current search result to a specified file',
-            stock_id=Gtk.STOCK_SAVE_AS
+            # stock_id=Gtk.STOCK_SAVE_AS
+            stock_id=None
         )
         self.action_filemenu_saveas_selectedvocables = Gtk.Action(
             name='File_SaveAs_SelectedVocables',
             label='Save selected vocables as …',
             tooltip='saves the currently selected vocables to a specified file',
-            stock_id=Gtk.STOCK_SAVE_AS
+            # stock_id=Gtk.STOCK_SAVE_AS
+            stock_id=None
         )
 
         # file -> exit
@@ -101,7 +107,8 @@ class XLDMenuBar(Gtk.MenuBar):
             name='File_Exit',
             label='Exit',
             tooltip='Closes the application',
-            stock_id=Gtk.STOCK_QUIT
+            # stock_id=Gtk.STOCK_QUIT
+            stock_id=None
         )
 
     def add_file_menu(self):

@@ -47,8 +47,8 @@ class XLDMainWindow(Gtk.Window):
 
     def add_menubar(self):
         self.menubar = XLDMenuBar(self)
-        menubar = self.uimanager.get_widget("/MenuBar")
-        self.widget_content_vbox.pack_start(child=menubar, expand=False, fill=False, padding=0)
+        menubar_ui = self.uimanager.get_widget("/MenuBar")
+        self.widget_content_vbox.pack_start(child=menubar_ui, expand=False, fill=False, padding=0)
 
     def add_notebook(self):
         self.notebook = Gtk.Notebook()
