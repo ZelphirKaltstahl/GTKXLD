@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+from gi.repository import Gdk
 from gi.repository import Gtk
 from gui.XLDMenuBar import XLDMenuBar
 from gui.XLDVocableTreeView import XLDVocableTreeView
+from gui.notebookpages.DictionaryPage import XLDDictionaryPage
+from gui.notebookpages.TrainingPage import TrainingPage
 from helpers.StringHelper import get_leading_zero_number_string, len_of_number
 
 __author__ = 'xiaolong'
@@ -54,82 +57,15 @@ class XLDMainWindow(Gtk.Window):
         self.add_training_page()
 
     def add_xldvocabletreeview_page(self):
-        # page is a grid
-        self.dictionary_page = Gtk.Grid()
-        self.dictionary_page.set_hexpand(True)
-        self.dictionary_page.set_vexpand(True)
-        self.dictionary_page.set_row_spacing(4)
-        self.dictionary_page.set_column_spacing(4)
-
-        # sortable
-        sortable_vocable_tree_view_model = self.create_sortable_vocable_tree_view_model()
-        self.xld_vocabletreeview = XLDVocableTreeView()
-        self.xld_vocabletreeview.set_model(sortable_vocable_tree_view_model)
-
-        # inside a scrolled window
-        self.scrolled_window = Gtk.ScrolledWindow()
-        self.scrolled_window.set_policy(
-            hscrollbar_policy=Gtk.PolicyType.AUTOMATIC,
-            vscrollbar_policy=Gtk.PolicyType.AUTOMATIC
-        )
-        self.scrolled_window.set_hexpand(True)
-        self.scrolled_window.set_vexpand(True)
-        self.scrolled_window.add(self.xld_vocabletreeview)
-
-        # attach treeview to grid
-        self.dictionary_page.attach(child=self.scrolled_window, left=0, top=0, width=1, height=1)
-
-        # append page to notebook
+        self.dictionary_page = XLDDictionaryPage()
         self.notebook.append_page(self.dictionary_page, Gtk.Label('Dictionary'))
 
     def add_training_page(self):
         # page is a grid
-        self.training_page = Gtk.Grid()
-        self.training_page.set_hexpand(True)
-        self.training_page.set_vexpand(True)
-        self.training_page.set_row_spacing(4)
-        self.training_page.set_column_spacing(4)
-
-        # add a place holder label
-        self.training_page.attach(child=Gtk.Label('Training'), left=0, top=0, width=1, height=1)
+        self.training_page = TrainingPage()
 
         # append page to notebook
         self.notebook.append_page(self.training_page, Gtk.Label('Training'))
-
-    def create_sortable_vocable_tree_view_model(self):
-        # create the model
-        vocable_tree_view_model = Gtk.ListStore(str, str, str, str, str)  # index, fl, flps, slps, sl
-        vocable_list = [
-            ('Hallo', '---', '---', '你好'),
-            ('Guten Morgen', '---', '---', '早上好'),
-            ('Guten Abend', '---', '---', '晚上好'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见！你今天有时间吗？'),
-            ('essen (v.)', '---', '---', '吃饭')
-        ]
-        for list_index, vocable in enumerate(vocable_list):
-            string_index = get_leading_zero_number_string(list_index, len_of_number(len(vocable_list)))
-            row = [string_index]
-            for attribute in vocable:
-                row.append(attribute)
-            vocable_tree_view_model.append(row)
-
-        # make it sortable
-        sortable_vocable_tree_view_model = Gtk.TreeModelSort(model=vocable_tree_view_model)
-
-        return sortable_vocable_tree_view_model
 
     def connect_signals(self):
         pass
@@ -143,3 +79,9 @@ class XLDMainWindow(Gtk.Window):
         self.add_accel_group(accelgroup)
 
         return self.uimanager
+
+    '''
+    def on_button_press_event(self, widget, event):
+        if event.type == Gdk.EventType.BUTTON_PRESS and event.button == 3:
+            print('You right-clicker!')
+                '''
