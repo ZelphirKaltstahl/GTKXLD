@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from gi.repository import Gdk
 from gi.repository import Gtk
+from filetools.path_helper import get_full_path
 from gui.XLDMenuBar import XLDMenuBar
 from gui.XLDVocableTreeView import XLDVocableTreeView
 from gui.notebookpages.DictionaryPage import XLDDictionaryPage
@@ -14,6 +15,8 @@ class XLDMainWindow(Gtk.Window):
     WINDOW_TITLE = 'Xiaolong Dictionary'
     DEFAULT_X_SIZE = 400
     DEFAULT_Y_SIZE = 300
+
+    style_provider = None
 
     widget_content_vbox = None
     menubar = None
@@ -35,6 +38,7 @@ class XLDMainWindow(Gtk.Window):
 
         self.initialize_widgets()
         self.add_widgets()
+        self.load_style_sheet()
 
     def initialize_widgets(self):
         self.widget_content_vbox = Gtk.VBox()
@@ -85,3 +89,15 @@ class XLDMainWindow(Gtk.Window):
         if event.type == Gdk.EventType.BUTTON_PRESS and event.button == 3:
             print('You right-clicker!')
                 '''
+
+    def load_style_sheet(self):
+        if self.style_provider is None:
+            self.style_provider = Gtk.CssProvider()
+
+        self.style_provider.load_from_path(get_full_path('res/css', 'style.css'))
+
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            self.style_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )

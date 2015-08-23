@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from gi.repository import Gtk
+from gui.BigCharacterBox import BigCharacterBox
 from gui.XLDVocableTreeView import XLDVocableTreeView
 from helpers.StringHelper import get_leading_zero_number_string, len_of_number
 
@@ -7,10 +8,11 @@ __author__ = 'xiaolong'
 
 
 class XLDDictionaryPage(Gtk.Grid):
-
     sortable_vocable_tree_view_model = None
     xld_vocabletreeview = None
     scrolled_window = None
+    scrolled_window_frame = None
+    big_character_box = None
 
     def __init__(self):
         super().__init__()
@@ -28,6 +30,9 @@ class XLDDictionaryPage(Gtk.Grid):
         self.xld_vocabletreeview = XLDVocableTreeView()
         self.xld_vocabletreeview.set_model(self.sortable_vocable_tree_view_model)
 
+        self.scrolled_window_frame = Gtk.Frame()
+        self.scrolled_window_frame.set_name('vocable_treeview_scrolled_window_frame')
+
         self.scrolled_window = Gtk.ScrolledWindow()
         self.scrolled_window.set_policy(
             hscrollbar_policy=Gtk.PolicyType.AUTOMATIC,
@@ -36,9 +41,14 @@ class XLDDictionaryPage(Gtk.Grid):
         self.scrolled_window.set_hexpand(True)
         self.scrolled_window.set_vexpand(True)
 
+        self.big_character_box = BigCharacterBox()
+        self.big_character_box.set_name('bigCharacterBox')
+
     def add_widgets(self):
         self.scrolled_window.add(self.xld_vocabletreeview)
-        self.attach(child=self.scrolled_window, left=0, top=0, width=1, height=1)
+        self.scrolled_window_frame.add(self.scrolled_window)
+        self.attach(child=self.scrolled_window_frame, left=0, top=0, width=1, height=1)
+        self.attach(child=self.big_character_box, left=1, top=0, width=1, height=1)
 
 
     def create_sortable_vocable_tree_view_model(self):

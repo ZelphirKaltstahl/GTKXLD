@@ -1,0 +1,21 @@
+#bigCharacterBox {
+    margin: 1em;
+}
+
+#bigCharacterLabel {
+    color: #000000;
+    font-size: 5em;
+}
+
+#bigCharacterLabelFrame {
+    border-width: 1px;
+    border-color: rgb(140, 140, 140);
+    border-radius: 7px;
+
+    padding: 10px;
+}
+
+#vocable_treeview_scrolled_window_frame {
+    border-width: 1px;
+    border-color: rgb(140, 140, 140);
+}

@@ -65,7 +65,7 @@ class XLDVocableTreeView(Gtk.TreeView):
         self.popup_menu_ui = PopupMenuProvider.get_vocable_treeview_popup_menu()
 
     def connect_signal_handlers(self):
-        self.connect(GTKSignal.RIGHT_CLICK, self.on_button_press_event)
+        self.connect(GTKSignal.CLICK, self.on_button_press_event)
 
     def on_button_press_event(self, widget, event):
         if event.button == GTKSignal.RIGHT_MOUSE_BUTTON_ID:

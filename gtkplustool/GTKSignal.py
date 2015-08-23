@@ -5,7 +5,8 @@ __author__ = 'xiaolong'
 DELETE = 'delete-event'
 CLICKED = 'clicked'
 ACTIVATE = 'activate'
-RIGHT_CLICK = 'button-press-event'
+
+CLICK = 'button-press-event'
 
 RIGHT_MOUSE_BUTTON_ID = 3
 MIDDLE_MOUSE_BUTTON_ID = 2
