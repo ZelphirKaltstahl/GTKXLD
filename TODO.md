@@ -7,3 +7,5 @@
 * implement a XML vocable file reader, which uses the XSD file for vocables
 * change the structure of the XSD file, so that each attribute is a pair of <key> and <value>, so that the model can be easily extended
 * implement a way of creating the Gtk.ListStore for the list of vocables
+
+* make colmns resizeable
