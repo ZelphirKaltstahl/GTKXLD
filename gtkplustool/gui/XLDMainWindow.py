@@ -13,8 +13,8 @@ __author__ = 'xiaolong'
 
 class XLDMainWindow(Gtk.Window):
     WINDOW_TITLE = 'Xiaolong Dictionary'
-    DEFAULT_X_SIZE = 400
-    DEFAULT_Y_SIZE = 300
+    DEFAULT_X_SIZE = 640
+    DEFAULT_Y_SIZE = 480
 
     style_provider = None
 

@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 from gi.repository import Gtk, Gdk
 import GTKSignal
-from ImageButton import ImageButton
-from Settings import SETTINGS
-from filetools.path_helper import get_full_path
 
 __author__ = 'xiaolong'
 
@@ -34,6 +31,11 @@ class BigCharacterBox(Gtk.Grid):
         self.set_column_spacing(4)
         self.set_column_homogeneous(True)
         self.set_hexpand(False)
+
+        self.set_margin_top(10)
+        self.set_margin_right(10)
+        self.set_margin_bottom(10)
+        self.set_margin_left(6)
 
         self.big_character_label_frame = Gtk.Frame(label='Characters')
         self.big_character_label_frame.set_name('bigCharacterLabelFrame')

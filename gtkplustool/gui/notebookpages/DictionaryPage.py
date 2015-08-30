@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from gi.repository import Gtk
+from math import log10
+from VocableManager import VocableManager
 from gui.BigCharacterBox import BigCharacterBox
 from gui.XLDVocableTreeView import XLDVocableTreeView
-from helpers.StringHelper import get_leading_zero_number_string, len_of_number
+from helpers.StringHelper import len_of_number, zero_fill
 
 __author__ = 'xiaolong'
 
@@ -50,36 +52,28 @@ class XLDDictionaryPage(Gtk.Grid):
         self.attach(child=self.scrolled_window_frame, left=0, top=0, width=1, height=1)
         self.attach(child=self.big_character_box, left=1, top=0, width=1, height=1)
 
-
     def create_sortable_vocable_tree_view_model(self):
         # create the model
         vocable_tree_view_model = Gtk.ListStore(str, str, str, str, str)  # index, fl, flps, slps, sl
-        vocable_list = [
-            ('Hallo', '---', '---', '你好'),
-            ('Guten Morgen', '---', '---', '早上好'),
-            ('Guten Abend', '---', '---', '晚上好'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见'),
-            ('Auf Wiedersehen', '---', '---', '再见！你今天有时间吗？'),
-            ('essen (v.)', '---', '---', '吃饭')
-        ]
+        # vocable_tree_view_model = ObjectListStore(str, str, str, str, str)  # index, fl, flps, slps, sl
+        vocable_list = []
+        for vocable in VocableManager.search_result:
+            vocable_list.append(
+                (
+                    vocable.first_language_translations,
+                    vocable.first_language_phonetic_scripts,
+                    vocable.second_language_phonetic_scripts,
+                    vocable.second_language_translations
+                )
+            )
+
         for list_index, vocable in enumerate(vocable_list):
-            string_index = get_leading_zero_number_string(list_index, len_of_number(len(vocable_list)))
+            string_index = zero_fill(str(list_index), len_of_number(len(vocable_list)))
             row = [string_index]
             for attribute in vocable:
                 row.append(attribute)
             vocable_tree_view_model.append(row)
+            # vocable_tree_view_model.append(Vocable('fl','flps','sl','slps','t','c','ll','rl','d')) # This does not work because of number of columns issue
 
         # make it sortable
         sortable_vocable_tree_view_model = Gtk.TreeModelSort(model=vocable_tree_view_model)

@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
+from filetools.path_helper import get_full_path
+
 __author__ = 'xiaolong'
 
+XML_VOCABLE_FILE_PATH = 'xml_vocable_file_path'
+XSD_FILE_PATH = 'xsd_file_path'
+
 SETTINGS = {
-    'big_character_box_font_name': 'Sim Sun',
-    'big_character_box_font_size': 50,
-    'big_character_box_font_weight': 'plain'
+    XML_VOCABLE_FILE_PATH: get_full_path('res/vocables', 'vocables.xml'),
+    XSD_FILE_PATH: get_full_path('res/vocables', 'xld-vocables-schema.xsd')
 }

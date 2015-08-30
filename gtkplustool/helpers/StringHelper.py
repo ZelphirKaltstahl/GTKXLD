@@ -13,6 +13,8 @@ def get_leading_zero_number_string(number, length):
     """
     return ('{0:0' + str(length) + 'd}').format(number)
 
+def zero_fill(string, length):
+    return string.zfill(length)
 
 def len_of_number(number):
     """

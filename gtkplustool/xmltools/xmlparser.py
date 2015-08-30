@@ -63,12 +63,9 @@ class XMLParser:
             cls,
             file,
             xml_root_element,
-            xml_declaration=False,
-            pretty_print=False,
-            encoding='unicode',
-            indent='\t'
+            xml_declaration=False
     ):
-        rough_string = etree.tostring(xml_root_element, encoding='unicode', xml_declaration=False)
+        rough_string = etree.tostring(xml_root_element, encoding='unicode', xml_declaration=xml_declaration)
         reparsed = minidom.parseString(rough_string)
         pretty_printed = reparsed.toprettyxml(indent='\t', encoding='utf-8')
 
