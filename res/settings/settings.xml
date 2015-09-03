@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <list>
 	<setting>
-		<name>initial_treeview_column_width</name>
-		<value>100</value>
-	</setting>
-	<setting>
-		<name>xsd_vocable_file_path</name>
-		<value>/home/xiaolong/development/pycharm-workspace/gtkplus-tool/res/vocables/vocables.xsd</value>
+		<name>dialog_show_exit_confirmation</name>
+		<value>True</value>
 	</setting>
 	<setting>
 		<name>xml_vocable_file_path</name>
 		<value>/home/xiaolong/development/pycharm-workspace/gtkplus-tool/res/vocables/vocables.xml</value>
 	</setting>
 	<setting>
-		<name>dialog_show_save_vocables_confirmation</name>
+		<name>exit_on_exit</name>
 		<value>True</value>
 	</setting>
 	<setting>
-		<name>save_vocables_on_exit</name>
+		<name>initial_treeview_column_width</name>
+		<value>100</value>
+	</setting>
+	<setting>
+		<name>attribute_value_separator</name>
+		<value>/</value>
+	</setting>
+	<setting>
+		<name>dialog_show_save_vocables_confirmation</name>
 		<value>True</value>
 	</setting>
 	<setting>
@@ -25,11 +29,11 @@
 		<value> \t</value>
 	</setting>
 	<setting>
-		<name>attribute_value_separator</name>
-		<value>/</value>
+		<name>save_vocables_on_exit</name>
+		<value>True</value>
 	</setting>
 	<setting>
-		<name>dialog_show_exit_confirmation</name>
-		<value>True</value>
+		<name>xsd_vocable_file_path</name>
+		<value>/home/xiaolong/development/pycharm-workspace/gtkplus-tool/res/vocables/vocables.xsd</value>
 	</setting>
 </list>

@@ -22,6 +22,7 @@ class AppSettings:
     INITIAL_TREEVIEW_COLUMN_WIDTH = 'initial_treeview_column_width'
 
     SAVE_VOCABLES_ON_EXIT_SETTING_NAME = 'save_vocables_on_exit'
+    EXIT_ON_EXIT_SETTING_NAME = 'exit_on_exit'
     DIALOG_SHOW_SAVE_VOCABLES_CONFIRMATION_SETTING_NAME = 'dialog_show_save_vocables_confirmation'
     DIALOG_SHOW_EXIT_CONFIRMATION_SETTING_NAME = 'dialog_show_exit_confirmation'
 
