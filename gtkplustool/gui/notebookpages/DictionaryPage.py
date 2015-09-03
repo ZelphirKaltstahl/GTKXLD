@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from gi.repository import Gtk
 from math import log10
+from AppSettings import AppSettings
 from VocableManager import VocableManager
 from gui.BigCharacterBox import BigCharacterBox
 from gui.XLDVocableTreeView import XLDVocableTreeView
@@ -44,7 +45,7 @@ class XLDDictionaryPage(Gtk.Grid):
         self.scrolled_window.set_vexpand(True)
 
         self.big_character_box = BigCharacterBox()
-        self.big_character_box.set_name('bigCharacterBox')
+        self.big_character_box.set_name('big_character_box')
 
     def add_widgets(self):
         self.scrolled_window.add(self.xld_vocabletreeview)
@@ -53,22 +54,23 @@ class XLDDictionaryPage(Gtk.Grid):
         self.attach(child=self.big_character_box, left=1, top=0, width=1, height=1)
 
     def create_sortable_vocable_tree_view_model(self):
-        # create the model
         vocable_tree_view_model = Gtk.ListStore(str, str, str, str, str)  # index, fl, flps, slps, sl
-        # vocable_tree_view_model = ObjectListStore(str, str, str, str, str)  # index, fl, flps, slps, sl
-        vocable_list = []
+        displayed_vocable_attributes_list = []
+
+        delimiter = AppSettings.get_setting_by_name(AppSettings.ATTRIBUTE_VALUE_SEPARATOR_SETTING_NAME)
+
         for vocable in VocableManager.search_result:
-            vocable_list.append(
+            displayed_vocable_attributes_list.append(
                 (
-                    vocable.first_language_translations,
-                    vocable.first_language_phonetic_scripts,
-                    vocable.second_language_phonetic_scripts,
-                    vocable.second_language_translations
+                    delimiter.join(vocable.first_language_translations),
+                    delimiter.join(vocable.first_language_phonetic_scripts),
+                    delimiter.join(vocable.second_language_phonetic_scripts),
+                    delimiter.join(vocable.second_language_translations)
                 )
             )
 
-        for list_index, vocable in enumerate(vocable_list):
-            string_index = zero_fill(str(list_index), len_of_number(len(vocable_list)))
+        for list_index, vocable in enumerate(displayed_vocable_attributes_list):
+            string_index = zero_fill(str(list_index), len_of_number(len(displayed_vocable_attributes_list)))
             row = [string_index]
             for attribute in vocable:
                 row.append(attribute)

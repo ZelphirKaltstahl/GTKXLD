@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from AppSettings import AppSettings
 from FileManager import FileManager
 
 __author__ = 'xiaolong'
@@ -41,7 +42,14 @@ class VocableManager:
 
     @classmethod
     def load_vocables(cls):
-        VocableManager.vocables = FileManager.load_vocables()
+        xml_file_path = AppSettings.get_setting_by_name(AppSettings.XML_VOCABLE_FILE_PATH_SETTING_NAME)
+        xsd_file_path = AppSettings.get_setting_by_name(AppSettings.XSD_VOCABLE_FILE_PATH_SETTING_NAME)
+
+        VocableManager.vocables = FileManager.load_vocables(xml_file_path, xsd_file_path)
         VocableManager.search_result = VocableManager.vocables
 
-
+    @classmethod
+    def save_vocables(cls, vocable_list):
+        xml_file_path = AppSettings.get_setting_by_name(AppSettings.XML_VOCABLE_FILE_PATH_SETTING_NAME)
+        xsd_file_path = AppSettings.get_setting_by_name(AppSettings.XSD_VOCABLE_FILE_PATH_SETTING_NAME)
+        FileManager.save_vocables(vocable_list, xml_file_path, xsd_file_path)

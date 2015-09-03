@@ -27,6 +27,6 @@ class TestTemplate:
 
     def test_xml_file_validity(self):
         assert XMLParser.validate_file(
-            xsd_filename='/home/xiaolong/development/pycharm-workspace/gtkplus-tool/res/xld-vocables-schema-test.xsd',
-            xml_filename='/home/xiaolong/development/pycharm-workspace/gtkplus-tool/res/vocables.xml'
+            xsd_file_path='/home/xiaolong/development/pycharm-workspace/gtkplus-tool/res/xld-vocables-schema-test.xsd',
+            xml_file_path='/home/xiaolong/development/pycharm-workspace/gtkplus-tool/res/vocables.xml'
         ), 'Your XML file is not valid against the provided XSD file.'

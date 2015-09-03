@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<list>
+	<setting>
+		<name>initial_treeview_column_width</name>
+		<value>100</value>
+	</setting>
+	<setting>
+		<name>stripped_characters</name>
+		<value> \t</value>
+	</setting>
+	<setting>
+		<name>xml_vocable_file_path</name>
+		<value>/home/xiaolong/development/pycharm-workspace/gtkplus-tool/res/vocables/vocables.xml</value>
+	</setting>
+	<setting>
+		<name>attribute_value_separator</name>
+		<value>/</value>
+	</setting>
+	<setting>
+		<name>xsd_vocable_file_path</name>
+		<value>/home/xiaolong/development/pycharm-workspace/gtkplus-tool/res/vocables/vocables.xsd</value>
+	</setting>
+</list>

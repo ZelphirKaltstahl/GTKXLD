@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from gi.repository import Gdk
 from gi.repository import Gtk
+import sys
+from AppSettings import AppSettings
+import GTKSignal
+from VocableManager import VocableManager
 from filetools.path_helper import get_full_path
 from gui.XLDMenuBar import XLDMenuBar
-from gui.XLDVocableTreeView import XLDVocableTreeView
+from gui.dialogs.ExitConfirmationDialog import ExitConfirmationDialog
 from gui.notebookpages.DictionaryPage import XLDDictionaryPage
 from gui.notebookpages.TrainingPage import TrainingPage
-from helpers.StringHelper import get_leading_zero_number_string, len_of_number
 
 __author__ = 'xiaolong'
 
@@ -39,6 +42,9 @@ class XLDMainWindow(Gtk.Window):
         self.initialize_widgets()
         self.add_widgets()
         self.load_style_sheet()
+        self.connect_signals()
+
+        self.show_all()
 
     def initialize_widgets(self):
         self.widget_content_vbox = Gtk.VBox()
@@ -51,11 +57,15 @@ class XLDMainWindow(Gtk.Window):
 
     def add_menubar(self):
         self.menubar = XLDMenuBar(self)
-        menubar_ui = self.uimanager.get_widget("/MenuBar")
+        self.menubar.set_name('xld_menu_bar')
+
+        menubar_ui = self.uimanager.get_widget("/xld_menu_bar")
         self.widget_content_vbox.pack_start(child=menubar_ui, expand=False, fill=False, padding=0)
 
     def add_notebook(self):
         self.notebook = Gtk.Notebook()
+        self.notebook.set_name('notebook')
+
         self.widget_content_vbox.add(self.notebook)
         self.add_xldvocabletreeview_page()
         self.add_training_page()
@@ -72,7 +82,7 @@ class XLDMainWindow(Gtk.Window):
         self.notebook.append_page(self.training_page, Gtk.Label('Training'))
 
     def connect_signals(self):
-        pass
+        self.connect(GTKSignal.DELETE, self.exit_application)
 
     def create_ui_manager(self):
         """This method creates a Gtk.UIManager."""
@@ -101,3 +111,20 @@ class XLDMainWindow(Gtk.Window):
             self.style_provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
+
+    def exit_application(self, widget, event):
+        exit_confirmation_dialog = ExitConfirmationDialog(self)
+        exit_confirmation_response = exit_confirmation_dialog.run()
+
+        if exit_confirmation_response == Gtk.ResponseType.YES:
+            print("Clicked YES")
+            # TODO: Ask if save or not
+            VocableManager.save_vocables(VocableManager.vocables)
+            AppSettings.save_settings()
+            Gtk.main_quit()
+            sys.exit()
+        elif exit_confirmation_response == Gtk.ResponseType.NO:
+            print("Clicked NO")
+
+        exit_confirmation_dialog.destroy()
+        return GTKSignal.DO_NOT_PROPAGATE

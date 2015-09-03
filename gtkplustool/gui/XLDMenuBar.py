@@ -8,7 +8,7 @@ from gi.repository import Gtk
 
 class XLDMenuBar(Gtk.MenuBar):
     MENUBAR_UI_INFO = """<ui>
-            <menubar name='MenuBar'>
+            <menubar name='xld_menu_bar'>
                 <menu action='FileMenu'>
 
                     <menu action='File_New'>

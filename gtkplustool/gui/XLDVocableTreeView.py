@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from gi.repository import Gtk
+from AppSettings import AppSettings
 
 import GTKSignal
 from VocableManager import VocableManager
+from exceptions.SettingUnknownException import SettingUnknownException
 from gui.popupmenus.PopupMenuProvider import PopupMenuProvider
 
 __author__ = 'xiaolong'
@@ -58,6 +60,22 @@ class XLDVocableTreeView(Gtk.TreeView):
             self.set_search_column(index)
             self.columns[-1].set_sort_column_id(index)
             self.columns[-1].set_reorderable(True)
+            self.columns[-1].set_resizable(True)
+
+        # setting the width for all columns except the index column to 100
+        initial_width = -1
+        try:
+            initial_width = AppSettings.get_setting_by_name(AppSettings.INITIAL_TREEVIEW_COLUMN_WIDTH)
+            initial_width = int(initial_width, base=10)
+        except SettingUnknownException:
+            print('ERROR: SETTING NOT FOUND!')
+            initial_width = 100
+        except ValueError:
+            print('Could not convert string to integer value.')
+            initial_width = 100
+
+        for column_index in range(4):
+            self.columns[column_index+1].set_fixed_width(initial_width)
 
         self.get_selection().set_mode(Gtk.SelectionMode.MULTIPLE)
 

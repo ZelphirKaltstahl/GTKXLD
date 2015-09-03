@@ -20,6 +20,9 @@ class BigCharacterBox(Gtk.Grid):
     def __init__(self):
         super().__init__()
 
+        self.set_name('big_character_box')
+        self.set_property('name', 'big_character_box')
+
         self.initialize_widgets()
         self.add_widgets()
         self.connect_signals()
