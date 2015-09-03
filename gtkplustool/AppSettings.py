@@ -21,6 +21,10 @@ class AppSettings:
 
     INITIAL_TREEVIEW_COLUMN_WIDTH = 'initial_treeview_column_width'
 
+    SAVE_VOCABLES_ON_EXIT_SETTING_NAME = 'save_vocables_on_exit'
+    DIALOG_SHOW_SAVE_VOCABLES_CONFIRMATION_SETTING_NAME = 'dialog_show_save_vocables_confirmation'
+    DIALOG_SHOW_EXIT_CONFIRMATION_SETTING_NAME = 'dialog_show_exit_confirmation'
+
     def __init__(self):
         pass
 
@@ -28,6 +32,14 @@ class AppSettings:
     def get_setting_by_name(cls, name):
         if name in AppSettings.settings:
             return AppSettings.settings[name]
+        else:
+            raise SettingUnknownException('Tried to access a setting, which is not available or unkown.')
+
+    @classmethod
+    def set_setting_by_name(cls, name, value):
+        print('Changing setting:', name, ' VALUE:', value)
+        if name in AppSettings.settings:
+            AppSettings.settings[name] = str(value)
         else:
             raise SettingUnknownException('Tried to access a setting, which is not available or unkown.')
 

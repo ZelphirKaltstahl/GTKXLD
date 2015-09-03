@@ -8,6 +8,7 @@ from VocableManager import VocableManager
 from filetools.path_helper import get_full_path
 from gui.XLDMenuBar import XLDMenuBar
 from gui.dialogs.ExitConfirmationDialog import ExitConfirmationDialog
+from gui.dialogs.SaveVocablesBeforeExitConfirmationDialog import SaveVocablesBeforeExitConfirmationDialog
 from gui.notebookpages.DictionaryPage import XLDDictionaryPage
 from gui.notebookpages.TrainingPage import TrainingPage
 
@@ -113,17 +114,25 @@ class XLDMainWindow(Gtk.Window):
         )
 
     def exit_application(self, widget, event):
-        exit_confirmation_dialog = ExitConfirmationDialog(self)
-        exit_confirmation_response = exit_confirmation_dialog.run()
+        save_vocables = AppSettings.get_setting_by_name(AppSettings.SAVE_VOCABLES_ON_EXIT_SETTING_NAME) == 'True'
+        if AppSettings.get_setting_by_name(AppSettings.DIALOG_SHOW_SAVE_VOCABLES_CONFIRMATION_SETTING_NAME) == 'True':
+            save_vocables_confirmation_dialog = SaveVocablesBeforeExitConfirmationDialog(self)
+            save_vocables = save_vocables_confirmation_dialog.run() == Gtk.ResponseType.YES
+            AppSettings.set_setting_by_name(AppSettings.SAVE_VOCABLES_ON_EXIT_SETTING_NAME, save_vocables)
+            save_vocables_confirmation_dialog.destroy()
 
-        if exit_confirmation_response == Gtk.ResponseType.YES:
-            print("Clicked YES")
-            # TODO: Ask if save or not
+        if save_vocables:
             VocableManager.save_vocables(VocableManager.vocables)
+
+        exit_confirmation_dialog = ExitConfirmationDialog(self)
+        exit_confirmation = exit_confirmation_dialog.run() == Gtk.ResponseType.YES
+
+        if exit_confirmation:
+            print("Clicked YES")
             AppSettings.save_settings()
             Gtk.main_quit()
             sys.exit()
-        elif exit_confirmation_response == Gtk.ResponseType.NO:
+        else:
             print("Clicked NO")
 
         exit_confirmation_dialog.destroy()
