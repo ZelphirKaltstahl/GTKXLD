@@ -37,7 +37,7 @@ class AppSettings:
             raise SettingUnknownException('Tried to access a setting, which is not available or unkown.')
 
     @classmethod
-    def set_setting_by_name(cls, name, value):
+    def change_setting_by_name(cls, name, value):
         print('Changing setting:', name, ' VALUE:', value)
         if name in AppSettings.settings:
             AppSettings.settings[name] = str(value)
@@ -56,13 +56,13 @@ class AppSettings:
         for item in AppSettings.xml_root:
             AppSettings.settings[item.find('name').text] = item.find('value').text
 
-        for key, value in AppSettings.settings.items():
-            print('Key:', key)
-            print('Value:', value)
+        # for key, value in AppSettings.settings.items():
+        #     print('Key:', key)
+        #     print('Value:', value)
 
     @classmethod
     def save_settings(cls):
-        print('trying to save settings:', AppSettings.settings)
+        # print('trying to save settings:', AppSettings.settings)
 
         xml_settings_file_path = get_full_path('res/settings', 'settings.xml')
         xsd_settings_file_path = get_full_path('res/settings', 'settings.xsd')
@@ -83,5 +83,5 @@ class AppSettings:
             raise XMLInvalidException('The XML is not valid.')
 
     @classmethod
-    def append_setting(cls, key, value):
-        pass
+    def add_setting_by_name(cls, name, value):
+        AppSettings.settings[name] = value

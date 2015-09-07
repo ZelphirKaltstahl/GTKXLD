@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from AppSettings import AppSettings
 from FileManager import FileManager
+from exceptions.UnknownVocableException import UnknownVocableException
 
 __author__ = 'xiaolong'
 
@@ -15,8 +16,11 @@ class VocableManager:
 
     @classmethod
     def remove_vocable(cls, vocable):
-        VocableManager.vocables.remove(vocable)
-        del vocable
+        if vocable in VocableManager.vocables:
+            VocableManager.vocables.remove(vocable)
+            del vocable
+        else:
+            raise UnknownVocableException('Vocable not found.')
 
     @classmethod
     def remove_vocable_by_index(cls, index):

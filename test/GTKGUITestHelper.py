@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 from gi.repository import Gtk
 import time
+from gi.repository import Wnck
 
 __author__ = 'xiaolong'
 
 
-class GTKGUITestHelper():
+class GTKGUITestHelper:
     def __init__(self):
         pass
 
     @classmethod
     def refresh_gui(cls, delay=0):
-        #print('delay', delay)
+        # print('delay', delay)
         while Gtk.events_pending():
             Gtk.main_iteration_do(blocking=False)
         time.sleep(float(delay))
@@ -49,3 +50,21 @@ class GTKGUITestHelper():
             if widget.get_name() == widget_name:
                 return widget
         return None
+
+    @classmethod
+    def get_window_list(cls):
+        screen = Wnck.Screen.get_default()
+
+        # recommended per Wnck documentation
+        screen.force_update()
+
+        window_list = screen.get_windows()
+
+        # clean up Wnck (saves resources, check documentation)
+        # del window
+        del screen
+        # Wnck.shutdown()
+
+        print(window_list)
+
+        return window_list

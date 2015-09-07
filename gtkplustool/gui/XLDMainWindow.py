@@ -120,7 +120,7 @@ class XLDMainWindow(Gtk.Window):
         if AppSettings.get_setting_by_name(AppSettings.DIALOG_SHOW_SAVE_VOCABLES_CONFIRMATION_SETTING_NAME) == strtrue:
             save_vocables_confirmation_dialog = SaveVocablesBeforeExitConfirmationDialog(self)
             save_vocables = save_vocables_confirmation_dialog.run() == Gtk.ResponseType.YES
-            AppSettings.set_setting_by_name(AppSettings.SAVE_VOCABLES_ON_EXIT_SETTING_NAME, save_vocables)
+            AppSettings.change_setting_by_name(AppSettings.SAVE_VOCABLES_ON_EXIT_SETTING_NAME, save_vocables)
             save_vocables_confirmation_dialog.destroy()
 
         if save_vocables:
@@ -130,7 +130,7 @@ class XLDMainWindow(Gtk.Window):
         if AppSettings.get_setting_by_name(AppSettings.DIALOG_SHOW_EXIT_CONFIRMATION_SETTING_NAME) == strtrue:
             exit_confirmation_dialog = ExitConfirmationDialog(self)
             exit_confirmation = exit_confirmation_dialog.run() == Gtk.ResponseType.YES
-            AppSettings.set_setting_by_name(AppSettings.EXIT_ON_EXIT_SETTING_NAME, exit_confirmation)
+            AppSettings.change_setting_by_name(AppSettings.EXIT_ON_EXIT_SETTING_NAME, exit_confirmation)
             exit_confirmation_dialog.destroy()
 
         if exit_confirmation:

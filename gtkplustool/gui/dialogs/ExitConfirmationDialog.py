@@ -38,7 +38,7 @@ class ExitConfirmationDialog(Gtk.Dialog):
         self.remember_decision_checkbutton.connect('toggled', self.save_settings)
 
     def save_settings(self, widget):
-        AppSettings.set_setting_by_name(
+        AppSettings.change_setting_by_name(
             AppSettings.DIALOG_SHOW_EXIT_CONFIRMATION_SETTING_NAME,
             not self.remember_decision_checkbutton.get_active()
         )
