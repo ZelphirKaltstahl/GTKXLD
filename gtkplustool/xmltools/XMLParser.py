@@ -17,13 +17,12 @@ class XMLParser:
     """
     XML_DECLARATION = '<?xml version="1.0" encoding="utf-8" ?>\n\n'
 
-
     def __init__(self):
         pass
 
     @classmethod
     def validate_file(cls, xsd_file_path="log_schema.xsd", xml_file_path="log.xml"):
-        print('validating XML file ...')
+        # print('validating XML file ...')
 
         # create a schema document by parsing the content of the xsd file
         xml_schema_document = etree.parse(xsd_file_path)
@@ -39,7 +38,7 @@ class XMLParser:
 
     @classmethod
     def validate_tree(cls, xsd_file_path, xml_tree):
-        print('validating xml tree ...')
+        # print('validating XML tree ...')
         # create a schema document by parsing the content of the xsd file
         xml_schema_document = etree.parse(xsd_file_path)
         # create a schema using the schema document

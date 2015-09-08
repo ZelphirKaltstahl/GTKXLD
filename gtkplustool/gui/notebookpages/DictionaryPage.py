@@ -5,7 +5,7 @@ from AppSettings import AppSettings
 from VocableManager import VocableManager
 from gui.BigCharacterBox import BigCharacterBox
 from gui.XLDVocableTreeView import XLDVocableTreeView
-from helpers.StringHelper import len_of_number, zero_fill
+from helpers.StringFormater import len_of_number, zero_fill
 
 __author__ = 'xiaolong'
 

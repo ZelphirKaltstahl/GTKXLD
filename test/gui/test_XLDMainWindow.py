@@ -1,16 +1,12 @@
-from gi.overrides.Gdk import Gdk
 import pytest as pytest
-
 from gi.repository import Gtk
 from gi.repository import Wnck
-from AppSettings import AppSettings
 
-from ..GTKGUITestHelper import GTKGUITestHelper
-import GTKSignal
+from AppSettings import AppSettings
 from VocableManager import VocableManager
 from gui.BigCharacterBox import BigCharacterBox
 from gui.XLDMainWindow import XLDMainWindow
-from gui.XLDMenuBar import XLDMenuBar
+from test.helpers.GTKGUITestHelper import GTKGUITestHelper
 
 __author__ = 'xiaolong'
 
@@ -98,8 +94,8 @@ class TestXLDMainWindow:
 
     @pytest.fixture()
     def create_xld_main_window(self):
-        AppSettings.load_settings()
-        VocableManager.load_vocables()
+        AppSettings.load_settings()  # TODO: use test settings
+        VocableManager.load_vocables()  # TODO: use text vocables
         self.xld_main_window = XLDMainWindow()
         self.xld_main_window.show_all()
         GTKGUITestHelper.refresh_gui()

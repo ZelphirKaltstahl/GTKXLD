@@ -2,7 +2,7 @@
 from lxml import etree
 from filetools.path_helper import get_full_path
 from xmltools.XMLInvalidException import XMLInvalidException
-from xmltools.xmlparser import XMLParser
+from xmltools.XMLParser import XMLParser
 
 __author__ = 'xiaolong'
 

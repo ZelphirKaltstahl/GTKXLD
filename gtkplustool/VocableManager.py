@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from AppSettings import AppSettings
 from FileManager import FileManager
+from exceptions.DuplicateVocableException import DuplicateVocableException
 from exceptions.UnknownVocableException import UnknownVocableException
 
 __author__ = 'xiaolong'
@@ -28,10 +29,14 @@ class VocableManager:
 
     @classmethod
     def add_vocable(cls, vocable):
-        VocableManager.vocables.append(vocable)
+        if vocable not in VocableManager.vocables:
+            VocableManager.vocables.append(vocable)
+        else:
+            raise DuplicateVocableException('The vocable already exists.')
 
     @classmethod
     def set_search_result(cls, search_result):
+        """"This is a necessary setter. Other objects might listen for changes and need to be notified on changes."""
         VocableManager.search_result = search_result
 
     @classmethod

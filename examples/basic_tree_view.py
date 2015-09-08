@@ -5,7 +5,7 @@
 from gi.repository import Gtk
 from random import randint
 from math import log10, floor
-from helpers.StringHelper import get_leading_zero_number_string, len_of_number
+from helpers.StringFormater import get_leading_zero_number_string, len_of_number
 
 
 class BasicTreeViewExample:

@@ -8,7 +8,7 @@ __author__ = 'xiaolong'
 
 from AppSettings import AppSettings
 from model.Vocable import Vocable
-from xmltools.xmlparser import XMLParser
+from xmltools.XMLParser import XMLParser
 
 
 class FileManager:

@@ -1,0 +1,20 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<xsd:element name="list">
+		<xsd:complexType><!--a list is a complex type (because it consists of more than one string for example)-->
+			<xsd:sequence><!--a list consists of a single sequence-->
+
+				<xsd:element name="setting" minOccurs="0" maxOccurs="unbounded"><!--a sequence consists of 0 or more vocable elements-->
+					<xsd:complexType><!--a vocable element is a complex type-->
+						<xsd:sequence><!--a vocable consists of a sequence of elements-->
+							<xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1" />
+							<xsd:element name="value" type="xsd:string" minOccurs="1" maxOccurs="1" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+</xsd:schema>

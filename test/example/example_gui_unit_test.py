@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-import time
 
 __author__ = 'xiaolong'
 
 from unittest import TestCase, main
+
 from gi.repository import Gtk
 
-from test.GTKGUITestHelper import GTKGUITestHelper
+from helpers.GTKGUITestHelper import GTKGUITestHelper
 
 
 class MyView(Gtk.VBox):

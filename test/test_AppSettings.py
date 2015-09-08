@@ -4,6 +4,7 @@ import pytest as pytest
 from AppSettings import AppSettings
 from exceptions.SettingUnknownException import SettingUnknownException
 from filetools.path_helper import get_full_path
+from helpers.RandomStringCreator import RandomStringCreator
 
 __author__ = 'xiaolong'
 
@@ -28,9 +29,6 @@ class TestAppSettings:
 
     def teardown_method(self, method):
         pass
-
-    def randomword(self, length):
-        return ''.join(random.choice(string.ascii_lowercase) for i in range(length))
 
     @pytest.fixture()
     def load_settings(self):
@@ -105,10 +103,10 @@ class TestAppSettings:
 
         # make sure we have a string, which is not a key in the dictionary
         random_word_length = 10
-        random_word = self.randomword(random_word_length)
+        random_word = RandomStringCreator.randomword(random_word_length)
         while random_word in AppSettings.settings:
             random_word_length += 1
-            random_word = self.randomword(random_word_length)
+            random_word = RandomStringCreator.randomword(random_word_length)
 
         # check for 1. (does it throw the correct exception?)
         try:
@@ -144,10 +142,10 @@ class TestAppSettings:
         """
         # make sure we have a string, which is not a key in the dictionary
         random_word_length = 10
-        random_word = self.randomword(random_word_length)
+        random_word = RandomStringCreator.randomword(random_word_length)
         while random_word in AppSettings.settings:
             random_word_length += 1
-            random_word = self.randomword(random_word_length)
+            random_word = RandomStringCreator.randomword(random_word_length)
 
         # check for 1. (Does the method throw the correct exception?)
         try:
