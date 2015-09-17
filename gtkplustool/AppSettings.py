@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from lxml import etree
+from decorators.timefunction import timefunction
 from filetools.path_helper import get_full_path
 from xmltools.XMLInvalidException import XMLInvalidException
 from xmltools.XMLParser import XMLParser
@@ -31,6 +32,9 @@ class AppSettings:
 
     @classmethod
     def get_setting_by_name(cls, name):
+        # def get_setting_by_name(cls, name, caller='unknown'):
+        # if caller == 'exit_application':
+        #     print('caller:', caller)
         if name in AppSettings.settings:
             return AppSettings.settings[name]
         else:

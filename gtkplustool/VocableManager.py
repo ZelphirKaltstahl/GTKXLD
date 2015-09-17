@@ -11,6 +11,7 @@ class VocableManager:
 
     vocables = []
     search_result = []
+    vocables_changed = False
 
     def __init__(self):
         pass
@@ -22,10 +23,12 @@ class VocableManager:
             del vocable
         else:
             raise UnknownVocableException('Vocable not found.')
+        VocableManager.vocables_changed = True
 
     @classmethod
     def remove_vocable_by_index(cls, index):
         del VocableManager.vocables[index]
+        VocableManager.vocables_changed = True
 
     @classmethod
     def add_vocable(cls, vocable):
@@ -33,6 +36,7 @@ class VocableManager:
             VocableManager.vocables.append(vocable)
         else:
             raise DuplicateVocableException('The vocable already exists.')
+        VocableManager.vocables_changed = True
 
     @classmethod
     def set_search_result(cls, search_result):

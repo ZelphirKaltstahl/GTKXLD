@@ -38,6 +38,7 @@ class TestVocableManager:
 
     @pytest.fixture()
     def load_app_settings(self):
+        print('loading app settings ...')
         AppSettings.load_settings()  # TODO: use test settings
 
     @pytest.fixture()
@@ -72,6 +73,7 @@ class TestVocableManager:
 
         return vocable_not_in_list
 
+    @pytest.mark.integration
     @pytest.mark.usefixtures('load_vocables')
     def test_vocable_list_invariance(self):
         # get vocables
@@ -85,7 +87,7 @@ class TestVocableManager:
         new_vocables = VocableManager.vocables
 
         # test object inequality, to assure further testing this way is useful
-        assert vocables[0] != new_vocables[0], \
+        assert vocables[0] is not new_vocables[0], \
             'The compared vocable objects are identical.'
 
         # for all vocables
@@ -148,6 +150,7 @@ class TestVocableManager:
             assert vocables[index].description == new_vocables[index].description, \
                 'There are differences in a vocable\'s description attribute.'
 
+    @pytest.mark.integration
     @pytest.mark.usefixtures('load_app_settings')
     def test_xml_file_invariance(self):
         # get file content
@@ -166,6 +169,7 @@ class TestVocableManager:
             'Loading and saving the vocables leads to changes in the XML vocable file, ' \
             'although the vocables didn\'t change. These changes might be whitespace character differences.'
 
+    @pytest.mark.unit
     @pytest.mark.usefixtures('load_vocables')
     def test_remove_vocable(self):
         number_of_vocables = len(VocableManager.vocables)
@@ -179,15 +183,23 @@ class TestVocableManager:
             random_indices.append(random_index)
             selected_vocables.append(VocableManager.vocables[random_index])
 
-        assert CollectionsHelper.all_unique(random_indices), 'Trying to remove vocable of one and the same index twice during test.'
+        assert CollectionsHelper.all_unique(random_indices), \
+            'Trying to remove vocable of one and the same index twice during test.'
 
         for selected_vocable in selected_vocables:
             VocableManager.remove_vocable(selected_vocable)
+            assert selected_vocable is not None, \
+                'There is no handle on the deleted vocable anymore.'
+
+            if selected_vocable in VocableManager.vocables:
+                VocableManager.vocables.index(selected_vocable)
+
             assert selected_vocable not in VocableManager.vocables, 'Vocable was not deleted from vocables.'
 
         for selected_vocable in selected_vocables:
             assert selected_vocable not in VocableManager.vocables, 'Vocable was not deleted from vocables.'
 
+    @pytest.mark.unit
     @pytest.mark.usefixtures('load_vocables')
     def test_remove_vocable_throws_exception(self, vocable_not_in_list):
         try:
@@ -201,6 +213,7 @@ class TestVocableManager:
         except UnknownVocableException as uvexception:
             assert False, 'could not remove existing vocable'
 
+    @pytest.mark.unit
     @pytest.mark.usefixtures('load_vocables')
     def test_remove_vocable_by_index(self):
         number_of_vocables = len(VocableManager.vocables)
@@ -222,6 +235,8 @@ class TestVocableManager:
         for vocable_index in random_indices:
             deleted_vocables.append(VocableManager.vocables[vocable_index])
             VocableManager.remove_vocable_by_index(vocable_index)
+            assert deleted_vocables[-1] is not None, \
+                'There is no handle on the deleted vocable anymore.'
             assert deleted_vocables[-1] not in VocableManager.vocables, \
                 'Vocable was not deleted from vocables.'
 
@@ -232,6 +247,7 @@ class TestVocableManager:
             assert vocable not in VocableManager.vocables, \
                 'Vocable was not deleted from vocables.'
 
+    @pytest.mark.unit
     @pytest.mark.usefixtures('load_vocables')
     def test_add_vocable(self, vocable_not_in_list):
         length_of_vocables_before = len(VocableManager.vocables)
@@ -262,6 +278,7 @@ class TestVocableManager:
             except DuplicateVocableException as dvexception:
                 pass
 
+    @pytest.mark.unit
     @pytest.mark.usefixtures('load_vocables')
     def test_set_search_result(self):
         assert False, 'Not yet implemented.'
@@ -271,4 +288,4 @@ class TestVocableManager:
 # TODO: get_search_result
 # TODO: get_search_result_vocable
 # TODO: load_vocables
-# TODO: save_vocables(cls, vocable_list):
+# TODO: save_vocables(cls, create_vocable_list):

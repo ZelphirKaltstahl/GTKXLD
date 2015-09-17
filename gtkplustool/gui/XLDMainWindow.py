@@ -5,6 +5,7 @@ import sys
 from AppSettings import AppSettings
 import GTKSignal
 from VocableManager import VocableManager
+from decorators.timefunction import timefunction
 from filetools.path_helper import get_full_path
 from gui.XLDMenuBar import XLDMenuBar
 from gui.dialogs.ExitConfirmationDialog import ExitConfirmationDialog
@@ -117,7 +118,11 @@ class XLDMainWindow(Gtk.Window):
         strtrue = str(True)
 
         save_vocables = AppSettings.get_setting_by_name(AppSettings.SAVE_VOCABLES_ON_EXIT_SETTING_NAME) == strtrue
-        if AppSettings.get_setting_by_name(AppSettings.DIALOG_SHOW_SAVE_VOCABLES_CONFIRMATION_SETTING_NAME) == strtrue:
+        show_dialog = AppSettings.get_setting_by_name(
+            AppSettings.DIALOG_SHOW_SAVE_VOCABLES_CONFIRMATION_SETTING_NAME
+        ) == strtrue
+
+        if show_dialog and VocableManager.vocables_changed:
             save_vocables_confirmation_dialog = SaveVocablesBeforeExitConfirmationDialog(self)
             save_vocables = save_vocables_confirmation_dialog.run() == Gtk.ResponseType.YES
             AppSettings.change_setting_by_name(AppSettings.SAVE_VOCABLES_ON_EXIT_SETTING_NAME, save_vocables)
@@ -126,19 +131,24 @@ class XLDMainWindow(Gtk.Window):
         if save_vocables:
             VocableManager.save_vocables(VocableManager.vocables)
 
-        exit_confirmation = AppSettings.get_setting_by_name(AppSettings.EXIT_ON_EXIT_SETTING_NAME) == strtrue
-        if AppSettings.get_setting_by_name(AppSettings.DIALOG_SHOW_EXIT_CONFIRMATION_SETTING_NAME) == strtrue:
+        exit_on_exit_confirmation = AppSettings.get_setting_by_name(AppSettings.EXIT_ON_EXIT_SETTING_NAME) == strtrue
+        show_exit_confirmation = AppSettings.get_setting_by_name(AppSettings.DIALOG_SHOW_EXIT_CONFIRMATION_SETTING_NAME)
+
+        if show_exit_confirmation == strtrue:
+            ExitConfirmationDialog.__init__ = timefunction(ExitConfirmationDialog.__init__)  # decoration
             exit_confirmation_dialog = ExitConfirmationDialog(self)
-            exit_confirmation = exit_confirmation_dialog.run() == Gtk.ResponseType.YES
-            AppSettings.change_setting_by_name(AppSettings.EXIT_ON_EXIT_SETTING_NAME, exit_confirmation)
+            exit_confirmation_dialog.run = timefunction(exit_confirmation_dialog.run)  # decoration
+            exit_on_exit_confirmation = exit_confirmation_dialog.run() == Gtk.ResponseType.YES
+            AppSettings.change_setting_by_name(AppSettings.EXIT_ON_EXIT_SETTING_NAME, exit_on_exit_confirmation)
             exit_confirmation_dialog.destroy()
 
-        if exit_confirmation:
-            print("Clicked YES")
+        if exit_on_exit_confirmation:
+            # print("Clicked YES")
             AppSettings.save_settings()
             Gtk.main_quit()
             sys.exit()
         else:
-            print("Clicked NO")
+            # print("Clicked NO")
+            pass
 
         return GTKSignal.DO_NOT_PROPAGATE

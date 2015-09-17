@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from gi.repository import Gtk
 from AppSettings import AppSettings
+from decorators.timefunction import timefunction
 
 __author__ = 'xiaolong'
 
@@ -21,8 +22,10 @@ class ExitConfirmationDialog(Gtk.Dialog):
         self.initialize_widgets()
         self.add_widgets()
         self.connect_signals()
+        self.show_all = timefunction(self.show_all)
         self.show_all()
 
+    @timefunction
     def initialize_widgets(self):
         self.label = Gtk.Label('Do you really want to exit Xiaolong Dictionary?')
         self.remember_decision_checkbutton = Gtk.CheckButton('Remember my decision.')
@@ -30,13 +33,16 @@ class ExitConfirmationDialog(Gtk.Dialog):
             not bool(AppSettings.get_setting_by_name(AppSettings.DIALOG_SHOW_EXIT_CONFIRMATION_SETTING_NAME))
         )
 
+    @timefunction
     def add_widgets(self):
         self.get_content_area().add(self.label)
         self.get_content_area().add(self.remember_decision_checkbutton)
 
+    @timefunction
     def connect_signals(self):
         self.remember_decision_checkbutton.connect('toggled', self.save_settings)
 
+    @timefunction
     def save_settings(self, widget):
         AppSettings.change_setting_by_name(
             AppSettings.DIALOG_SHOW_EXIT_CONFIRMATION_SETTING_NAME,

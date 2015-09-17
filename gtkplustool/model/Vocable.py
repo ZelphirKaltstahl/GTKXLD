@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from AppSettings import AppSettings
-from helpers.PythonLanguageHelpers import overrides
+from decorators.overrides import overrides
 
 __author__ = 'xiaolong'
 
@@ -69,6 +69,7 @@ class Vocable:
     #     self.description = description
     #     return self
 
+    @overrides(object)
     def __str__(self):
         return '<Vocable> with ' + \
                Vocable.delimiter.join(self.first_language_translations) + ', ' + \
