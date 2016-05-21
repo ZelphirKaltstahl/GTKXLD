@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import functools
+from functools import wraps
 
 __author__ = 'xiaolong'
 
@@ -43,6 +43,7 @@ def overrides(interface_class):
     - The inner function receives its parameters from ???
     - The decorator is only called once for each method we decorate with this decorator, when those methods are created.
     """
+    @wraps
     def overrider(method):
         # print('Method name:', method.__name__)
         assert(method.__name__ in dir(interface_class))

@@ -6,7 +6,7 @@
 	</setting>
 	<setting>
 		<name>stripped_characters</name>
-		<value> \t</value>
+		<value> </value>
 	</setting>
 	<setting>
 		<name>xsd_vocable_file_path</name>

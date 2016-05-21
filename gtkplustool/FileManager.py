@@ -65,9 +65,10 @@ class FileManager:
         stripped_characters = AppSettings.get_setting_by_name(AppSettings.STRIPPED_CHARACTERS_SETTING_NAME)
 
         value_list = string.split(sep=attribute_value_separator, maxsplit=-1)
-        stripped_value_list = [value.strip(stripped_characters) for value in value_list]
+        # stripped_value_list = [value.strip(stripped_characters) for value in value_list]
 
-        return stripped_value_list
+        # return stripped_value_list
+        return value_list
 
     @classmethod
     def save_vocables(cls, vocable_list, xml_file_path, xsd_file_path):

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../MCVE/.idea/MCVE.iml" filepath="$PROJECT_DIR$/../MCVE/.idea/MCVE.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/gtkplus-tool.iml" filepath="$PROJECT_DIR$/.idea/gtkplus-tool.iml" />
     </modules>
   </component>

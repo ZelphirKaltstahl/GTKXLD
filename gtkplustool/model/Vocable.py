@@ -115,3 +115,16 @@ class Vocable:
                 self.second_language_phonetic_scripts
             )
         )
+
+    def clone(self):
+        return Vocable(
+            first_language_translations=self.first_language_translations,
+            first_language_phonetic_scripts=self.first_language_phonetic_scripts,
+            second_language_translations=self.second_language_translations,
+            second_language_phonetic_scripts=self.second_language_phonetic_scripts,
+            topics=self.topics,
+            chapters=self.chapters,
+            learn_level=self.learn_level,
+            relevance_level=self.relevance_level,
+            description=self.description
+        )

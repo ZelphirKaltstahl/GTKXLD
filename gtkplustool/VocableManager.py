@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from AppSettings import AppSettings
 from FileManager import FileManager
+from decorators.changesvocables import changesvocables
 from exceptions.DuplicateVocableException import DuplicateVocableException
 from exceptions.UnknownVocableException import UnknownVocableException
 
@@ -13,30 +14,39 @@ class VocableManager:
     search_result = []
     vocables_changed = False
 
+    test_counter = 0
+    test_call_counter = 0
+
     def __init__(self):
         pass
 
     @classmethod
+    @changesvocables
     def remove_vocable(cls, vocable):
+        VocableManager.test_call_counter += 1
         if vocable in VocableManager.vocables:
+            VocableManager.test_counter += 1
             VocableManager.vocables.remove(vocable)
-            del vocable
+            # del vocable
         else:
+            print(vocable)
             raise UnknownVocableException('Vocable not found.')
-        VocableManager.vocables_changed = True
+        # VocableManager.vocables_changed = True
 
     @classmethod
+    @changesvocables
     def remove_vocable_by_index(cls, index):
         del VocableManager.vocables[index]
-        VocableManager.vocables_changed = True
+        # VocableManager.vocables_changed = True
 
     @classmethod
+    @changesvocables
     def add_vocable(cls, vocable):
         if vocable not in VocableManager.vocables:
             VocableManager.vocables.append(vocable)
         else:
             raise DuplicateVocableException('The vocable already exists.')
-        VocableManager.vocables_changed = True
+        # VocableManager.vocables_changed = True
 
     @classmethod
     def set_search_result(cls, search_result):

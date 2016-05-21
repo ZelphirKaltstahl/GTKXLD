@@ -172,10 +172,22 @@ class TestVocableManager:
     @pytest.mark.unit
     @pytest.mark.usefixtures('load_vocables')
     def test_remove_vocable(self):
+        # copied_vocables = []
+        # for index, vocable in enumerate(VocableManager.vocables):
+        #     current_vocable = VocableManager.vocables[index]
+        #     copied_vocables.append(current_vocable.clone())
+        #
+        # assert len(copied_vocables) == len(VocableManager.vocables), \
+        #     'Not all vocables were copied.'
+        #
+        # for index, vocable in enumerate(copied_vocables):
+        #     if vocable not in VocableManager.vocables:
+        #         print(vocable)
+
         number_of_vocables = len(VocableManager.vocables)
         random_indices = []
         selected_vocables = []
-        for index in range(100):
+        for index in range(1000):
             # get an index, which we've not yet selected
             random_index = randint(0, number_of_vocables-1)
             while random_index in random_indices:
@@ -188,16 +200,15 @@ class TestVocableManager:
 
         for selected_vocable in selected_vocables:
             VocableManager.remove_vocable(selected_vocable)
-            assert selected_vocable is not None, \
-                'There is no handle on the deleted vocable anymore.'
+            # VocableManager.vocables.remove(selected_vocable)
 
-            if selected_vocable in VocableManager.vocables:
-                VocableManager.vocables.index(selected_vocable)
+            assert selected_vocable not in VocableManager.vocables, \
+                'Vocable was not deleted from vocables. ' + \
+                str(VocableManager.test_call_counter) + \
+                ' calls for deletion.' + \
+                ' The vocable which was not deleted is ' + str(selected_vocable)
 
-            assert selected_vocable not in VocableManager.vocables, 'Vocable was not deleted from vocables.'
-
-        for selected_vocable in selected_vocables:
-            assert selected_vocable not in VocableManager.vocables, 'Vocable was not deleted from vocables.'
+            print('Vocable deleted: ' + str(selected_vocable))
 
     @pytest.mark.unit
     @pytest.mark.usefixtures('load_vocables')
